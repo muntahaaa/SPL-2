@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Viewer</title>
+</head>
+<body>
+    <h1>Select an Image to View</h1>
+    <ul id="indexList"></ul>
+    <div id="imageContainer">
+        <img id="image" src="" alt="Selected Image" style="display:none; width: 300px;"/>
+        <div id="imageInfo"></div>
+    </div>
+
+    <script>
+        // Fetch the indexes from the server
+        fetch('/getIndexes')
+            .then(response => response.json())
+            .then(data => {
+                const indexList = document.getElementById('indexList');
+                data.forEach(index => {
+                    const li = document.createElement('li');
+                    li.textContent = index;
+                    li.onclick = () => viewImage(index);
+                    indexList.appendChild(li);
+                });
+            });
+
+        // Function to display the image based on selected index
+        function viewImage(index) {
+            const imageElement = document.getElementById('image');
+            const infoElement = document.getElementById('imageInfo');
+
+            // Fetch the image URL from the server
+            fetch(`/image/${index}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Set the image src to the relative URL returned by the server
+                    imageElement.src = data.imageUrl;
+                    imageElement.style.display = 'block';
+                    infoElement.innerHTML = `Showing image for index: ${index}`;
+                })
+                .catch(error => {
+                    infoElement.innerHTML = 'Error: ' + error.message;
+                });
+        }
+    </script>
+</body>
+</html>
