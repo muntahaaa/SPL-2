@@ -1,0 +1,14 @@
+node server.js
+===============
+POST /artifacts/create
+{
+  "secondaryId": "2024.11",
+  "category": "Category A",
+  "subcategory": "Subcategory B",
+  "description": "Sample artifact description",
+  "senderId": 1
+}
+===============
+POST /artifacts/upload-csv
+Place the CSV file in the project root directory as data.csv
+===============
