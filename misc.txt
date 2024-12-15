@@ -1,0 +1,73 @@
+npm init -y
+npm i nodemon express
+npm i dotenv
+npm i bcrypt
+npm i jsonwebtoken
+npm i multer
+npm i body-parser
+npm i cors
+npm install --save sequelize
+npm install --save pg pg-hstore 
+npm install --save-dev sequelize-cli
+npx sequelize-cli init
+npx sequelize-cli db:create
+npx sequelize-cli model:generate --name User --attributes userType:ENUM,Username:string,Email:string,Password:string,FullName:string,RoleID:integer  //this will create a migration file with the attributes, createdAt, updatedAt
+npx sequelize-cli db:migrate or db:migrate:undo
+npx sequelize-cli model:generate --name project --attributes title:string  //this will create a migration file with only title, createdAt, updatedAt
+
+//async request handler cannot catch global error (throw new error), next func can handle this error
+//if we call next() with arguments, it'll call global error handler
+//but there are various async middlewares like- login, signUP.. If they throw error global error handler cannot catch this
+//so we need to add try-catch block inside these and add next() in the try blocks to catch the error
+//but instead we can use....
+//utils-> catchAsync() helps to catch any error by global error handler without using next()
+
+npx create-react-app museum_website
+npm i axios 
+npm install web-vitals
+npm install cross-env
+npm install concurrently --save-dev
+npm start
+
+
+
+
+{
+  "name": "museum_website",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^1.7.9",
+    "cra-template": "1.2.0",
+    "cross-env": "^7.0.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^4.2.4"
+  },
+  "scripts": {
+    "start": "cross-env PORT=4000 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "proxy": "http://localhost:3000",
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
